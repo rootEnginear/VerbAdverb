@@ -7,7 +7,7 @@
       <br><br><br><br>
       <v-btn ref="randBtn" :disabled="randomInProgress" color="yellow text--black" @click.native="randText">&emsp;&emsp;<v-icon>refresh</v-icon> &nbsp;{{btnText}}&emsp;&emsp;</v-btn>
     </v-flex>
-    <audio ref="sound" preload src="./audio/roll.wav"></audio>
+    <audio ref="sound" preload="auto" src="./audio/roll.mp3"></audio>
   </v-layout>
 </template>
 

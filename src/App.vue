@@ -6,7 +6,7 @@
         <v-list>
           <v-list-tile>
             <v-list-tile-title class="title">
-              Verb Adverb
+              VerbAdverb
             </v-list-tile-title>
           </v-list-tile>
         </v-list>
@@ -26,7 +26,7 @@
             <v-icon>info</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>เกี่ยวกับ "Verb Adverb"</v-list-tile-title>
+            <v-list-tile-title>เกี่ยวกับ "VerbAdverb"</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -60,11 +60,12 @@
     <!-- About Dialog -->
     <v-dialog v-model="aboutDialog" width="80%">
       <v-card>
-        <v-card-title class="headline">เกี่ยวกับ "Verb Adverb"</v-card-title>
+        <v-card-title class="headline">เกี่ยวกับ "VerbAdverb"</v-card-title>
         <v-card-text class="text-xs-center">
-          Verb Adverb คือเกมสันทนาการหนึ่งที่ให้ผู้เล่นทำท่าตามที่จับฉลาดได้ ที่ทำก็ไม่มีหรอกอะไรขี้เกียจทำฉลาก<br>
+          VerbAdverb คือเกมสันทนาการหนึ่งที่ให้ผู้เล่นทำท่าตามที่จับฉลาดได้ ที่ทำก็ไม่มีหรอกอะไรขี้เกียจทำฉลาก<br>
           <i>เจอบัคไม่ต้องติดต่อมาหรอกไม่ทำแล้วค่ะ</i><br>
           เหงาโสดทักมา: <a style="color:black" target="_blank" href="mailto:moo_suthep@hotmail.com">@rootEnginear</a><br>
+          <small>Copyright &copy; <span id="year">2018</span> Suthep Chanchuphol. All right reserved.</small>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -124,12 +125,15 @@ export default {
     this.loadFromLocal();
   },
   methods: {
-    saveToLocal(reset=false){
+    saveToLocal(reset=false,onlyword=false){
       if(reset){
-        let data = [["นั่ง","นอน","กิน","ขี้","เดิน","วิ่ง","เลื้อย","เต้น","คลาน","ท่องสูตรคูณ","ปวดฟัน","ปวดท้อง","หัวเราะ","ยืน","โพสท่า"],["แบบสวยๆ","แบบจริงจัง","อย่างเมามัน","แบบช้าๆ","ด้วยความรำคาญ","แบบนางสาวไทย","อย่างบ้าคลั่ง","แบบตื่นเต้นสุดๆ","เหมือนอยู่บนสาย 8","แบบโรคจิต"]];
+        let data = [["นั่ง","นอน","กิน","ขี้","เดิน","วิ่ง","เลื้อย","เต้น","คลาน","ท่องสูตรคูณ","ปวดฟัน","ปวดท้อง","หัวเราะ","ยืน","โพสท่า"],["แบบสวยๆ","แบบจริงจัง","อย่างเมามัน","แบบช้าๆ","ด้วยความรำคาญ","แบบนางสาวไทย","อย่างบ้าคลั่ง","แบบตื่นเต้นสุดๆ","เหมือนอยู่บนสาย 8","แบบโรคจิต"],true];
+        if(onlyword){
+          data = [["นั่ง","นอน","กิน","ขี้","เดิน","วิ่ง","เลื้อย","เต้น","คลาน","ท่องสูตรคูณ","ปวดฟัน","ปวดท้อง","หัวเราะ","ยืน","โพสท่า"],["แบบสวยๆ","แบบจริงจัง","อย่างเมามัน","แบบช้าๆ","ด้วยความรำคาญ","แบบนางสาวไทย","อย่างบ้าคลั่ง","แบบตื่นเต้นสุดๆ","เหมือนอยู่บนสาย 8","แบบโรคจิต"],this.playSound];
+        }
         localStorage.setItem(STORAGE_NAME,JSON.stringify(data));
       }else{
-        localStorage.setItem(STORAGE_NAME,JSON.stringify([this.verbList,this.adverbList]));
+        localStorage.setItem(STORAGE_NAME,JSON.stringify([this.verbList,this.adverbList,this.playSound]));
       }
     },
     loadFromLocal(){
@@ -139,13 +143,19 @@ export default {
       }else{
         this.verbList = data[0];
         this.adverbList = data[1];
+        this.playSound = data[2];
       }
     },
     resetWords(){
       this.restoreDialog = false;
-      this.saveToLocal(true);
+      this.saveToLocal(true,true);
       this.loadFromLocal();
     }
+  },
+  mounted(){
+    setTimeout(()=>{
+      document.getElementById("year").innerText = new Date().getFullYear();
+    },1);
   }
 }
 </script>

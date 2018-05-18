@@ -11,7 +11,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Verb Adverb',
+      name: 'VerbAdverb',
       component: Maingame
     }, {
       path: '/spinner',
