@@ -1,28 +1,169 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <!-- Aside -->
+    <v-navigation-drawer v-model="drawer" temporary absolute>
+      <v-toolbar flat>
+        <v-list>
+          <v-list-tile>
+            <v-list-tile-title class="title">
+              Verb Adverb
+            </v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-toolbar>
+      <v-divider></v-divider>
+      <v-list class="pt-0" dense>
+        <v-list-tile active-class="yellow" v-for="item in items" :key="item.title" :to="item.action">
+          <v-list-tile-action>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile active-class="yellow" @click="aboutDialog = true; drawer = false">
+          <v-list-tile-action>
+            <v-icon>info</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>เกี่ยวกับ "Verb Adverb"</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+    </v-navigation-drawer>
+
+    <!-- Nav -->
+    <v-toolbar fixed color="yellow" app>
+      <!-- Icon -->
+      <v-toolbar-side-icon v-if="this.$route.path != '/settings/words'" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-btn v-else icon active-class :to="{path: '/settings'}">
+        <v-icon>arrow_back</v-icon>
+      </v-btn>
+      <!-- Name -->
+      <v-toolbar-title>{{this.$route.name}}</v-toolbar-title>
+
+      <v-spacer></v-spacer>
+      
+      <v-btn v-if="this.$route.path == '/settings/words'" icon @click="restoreDialog = true">
+        <v-icon>restore</v-icon>
+      </v-btn>
+      
+    </v-toolbar>
+
+    <!-- Content -->
+    <v-content>
+      <v-container class="pa-0" fluid fill-height>
+        <router-view />
+      </v-container>
+    </v-content>
+
+    <!-- About Dialog -->
+    <v-dialog v-model="aboutDialog" width="80%">
+      <v-card>
+        <v-card-title class="headline">เกี่ยวกับ "Verb Adverb"</v-card-title>
+        <v-card-text class="text-xs-center">
+          Verb Adverb คือเกมสันทนาการหนึ่งที่ให้ผู้เล่นทำท่าตามที่จับฉลาดได้ ที่ทำก็ไม่มีหรอกอะไรขี้เกียจทำฉลาก<br>
+          <i>เจอบัคไม่ต้องติดต่อมาหรอกไม่ทำแล้วค่ะ</i><br>
+          เหงาโสดทักมา: <a style="color:black" target="_blank" href="mailto:moo_suthep@hotmail.com">@rootEnginear</a><br>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="yellow" @click.native="aboutDialog = false">ปิด</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <!-- Restore Dialog -->
+    <v-dialog v-model="restoreDialog" persistent width="80%">
+      <v-card>
+        <v-card-title class="headline">ต้องการรีเซ็ตคำหรือไม่?</v-card-title>
+        <v-card-text>คำต่างๆ ที่คุณได้เพิ่มเข้าไปทีหลังจะ<span class="red--text">ถูกลบ</span>และรีเซ็ตเป็นคำเดิมเหมือนตอนแรก (ยังสามารถเพิ่มเข้าไปใหม่ได้อีกหลังรีเซ็ต)</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="ิblack" flat @click.native="restoreDialog = false">ยกเลิก</v-btn>
+          <v-btn color="red" flat @click.native="resetWords()">รีเซ็ต</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+const STORAGE_NAME = 'verbadverb'
 
 export default {
   name: 'app',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      verbList: ["นั่ง","นอน","กิน","ขี้","เดิน","วิ่ง","เลื้อย","เต้น","คลาน","ท่องสูตรคูณ","ปวดฟัน","ปวดท้อง","หัวเราะ","ยืน","โพสท่า"],
+      adverbList: ["แบบสวยๆ","แบบจริงจัง","อย่างเมามัน","แบบช้าๆ","ด้วยความรำคาญ","แบบนางสาวไทย","อย่างบ้าคลั่ง","แบบตื่นเต้นสุดๆ","เหมือนอยู่บนสาย 8","แบบโรคจิต"],
+      drawer: false,
+      items: [
+        {
+          icon: "games",
+          title: "เล่นเกม",
+          action: {path: "/"}
+        },
+        {
+          icon: "refresh",
+          title: "สปินเนอร์",
+          action: {path: "/spinner"}
+        },
+        {
+          icon: "settings",
+          title: "ตั้งค่า",
+          action: {path: "/settings"}
+        }
+      ],
+      restoreDialog: false,
+      aboutDialog: false,
+      playSound: true
+    }
+  },
+  created() {
+    this.loadFromLocal();
+  },
+  methods: {
+    saveToLocal(reset=false){
+      if(reset){
+        let data = [["นั่ง","นอน","กิน","ขี้","เดิน","วิ่ง","เลื้อย","เต้น","คลาน","ท่องสูตรคูณ","ปวดฟัน","ปวดท้อง","หัวเราะ","ยืน","โพสท่า"],["แบบสวยๆ","แบบจริงจัง","อย่างเมามัน","แบบช้าๆ","ด้วยความรำคาญ","แบบนางสาวไทย","อย่างบ้าคลั่ง","แบบตื่นเต้นสุดๆ","เหมือนอยู่บนสาย 8","แบบโรคจิต"]];
+        localStorage.setItem(STORAGE_NAME,JSON.stringify(data));
+      }else{
+        localStorage.setItem(STORAGE_NAME,JSON.stringify([this.verbList,this.adverbList]));
+      }
+    },
+    loadFromLocal(){
+      let data = JSON.parse(localStorage.getItem(STORAGE_NAME)) || "";
+      if(data === ""){
+        this.saveToLocal(true);
+      }else{
+        this.verbList = data[0];
+        this.adverbList = data[1];
+      }
+    },
+    resetWords(){
+      this.restoreDialog = false;
+      this.saveToLocal(true);
+      this.loadFromLocal();
+    }
   }
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+@font-face {
+  font-family: 'Kanit';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Kanit Regular'), local('Kanit-Regular'), url(https://fonts.gstatic.com/s/kanit/v3/nKKZ-Go6G5tXcraBGwCYdA.woff2) format('woff2');
+  unicode-range: U+0E01-0E5B, U+200C-200D, U+25CC;
+}
+
+* {
+  font-family: 'Kanit', sans-serif;
+}
+
+.application.theme--light{
+  background-color: #fff !important;
 }
 </style>

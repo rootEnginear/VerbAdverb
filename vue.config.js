@@ -1,3 +1,10 @@
 module.exports = {
-  lintOnSave: false
+  lintOnSave: true,
+  pwa: {
+    name: 'VerbAdverb',
+    themeColor: '#ffeb3b',
+    msTileColor: '#000000',
+    appleMobileWebAppCapable: 'yes',
+    appleMobileWebAppStatusBarStyle: 'black',
+  }
 }
