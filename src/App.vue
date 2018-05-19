@@ -35,7 +35,7 @@
     <!-- Nav -->
     <v-toolbar fixed color="yellow" app>
       <!-- Icon -->
-      <v-toolbar-side-icon v-if="this.$route.path != '/settings/words'" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-side-icon aria-label="open menu" v-if="this.$route.path != '/settings/words'" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-btn v-else icon active-class :to="{path: '/settings'}">
         <v-icon>arrow_back</v-icon>
       </v-btn>
@@ -102,7 +102,7 @@ export default {
       items: [
         {
           icon: "games",
-          title: "เล่นเกม",
+          title: "เล่น",
           action: {path: "/"}
         },
         {

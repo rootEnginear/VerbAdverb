@@ -29,8 +29,8 @@ export default {
   cursor: pointer;
   background-color: #ffeb3b;
   border-radius: 50%;
-  width: 80vw;
-  height: 80vw;
+  width: 70vw;
+  height: 70vw;
   text-align: center;
   transition: transform 2.5s ease-out;
 
@@ -38,8 +38,8 @@ export default {
   box-shadow: 0 0 5px -3px rgba(0,0,0,.2), 0 0 10px 1px rgba(0,0,0,.14), 0 0 14px 2px rgba(0,0,0,.12);
   
   i {
-    line-height: 80vw;
-    font-size: 70vw;
+    line-height: 70vw;
+    font-size: 60vw;
     color: #212121;
   }
 }

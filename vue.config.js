@@ -3,7 +3,7 @@ module.exports = {
   pwa: {
     name: 'VerbAdverb',
     themeColor: '#ffeb3b',
-    msTileColor: '#000000',
+    msTileColor: '#ffeb3b',
     appleMobileWebAppCapable: 'yes',
     appleMobileWebAppStatusBarStyle: 'black',
   }
