@@ -90,7 +90,7 @@
 </template>
 
 <script>
-const STORAGE_NAME = 'verbadverb'
+// const STORAGE_NAME = 'verbadverb'
 
 export default {
   name: 'app',

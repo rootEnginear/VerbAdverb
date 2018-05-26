@@ -13,13 +13,15 @@ export default {
     }
   },
   mounted(){
+    document.getElementById("compass").style.transition = "transform 0s ease-out";
+    document.getElementById("compass").style.transform = `rotate(${Math.random()*360}deg)`;
     setTimeout(()=>{
       document.getElementById("compass").style.transition = "transform 1s ease-out";
       document.getElementById("compass").style.transform = `rotate(${Math.random()*360*2-360}deg)`;
       setTimeout(()=>{
         document.getElementById("compass").style.transition = "transform 2.5s ease-out";
       },1000);
-    },1);
+    },0);
   }
 }
 </script>

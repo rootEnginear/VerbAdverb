@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+/* global process */
 
 import { register } from 'register-service-worker'
 
