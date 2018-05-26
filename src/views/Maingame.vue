@@ -25,20 +25,29 @@ export default {
     btnText() {
       const texts = ['คลิ๊กกกกกกกกกกซ์','จิ้มมมมมมมมมม','สุ่มมมมมมมมมม','สุ่มวนไปค่ะ','สุ่มซิจ๊ะ รออะไร'];
       return texts[Math.floor(Math.random() * texts.length)];
+    },
+    playSound() {
+      return this.$store.state.playSound
+    },
+    verbList() {
+      return this.$store.state.verbList
+    },
+    adverbList() {
+      return this.$store.state.adverbList
     }
   },
   methods: {
     randText(){
       this.randomInProgress = true;
       // Sound
-      if(this.$root.$children[0].playSound){
+      if(this.playSound){
         let sound = this.$refs.sound;
   
         sound.currentTime = 0;
         sound.play();
       }
-      let verbList = this.$root.$children[0].verbList;
-      let adverbList = this.$root.$children[0].adverbList
+      let verbList = this.verbList;
+      let adverbList = this.adverbList;
       // Randomizer
       let randomVerb = setInterval(()=>{
         this.verbText = verbList[Math.floor(Math.random() * verbList.length)];

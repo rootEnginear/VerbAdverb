@@ -11,7 +11,8 @@
     "register-service-worker": "^1.0.0",
     "vue": "^2.5.16",
     "vue-router": "^3.0.1",
-    "vuetify": "^1.0.18"
+    "vuetify": "^1.0.18",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0-beta.10",
@@ -29,7 +30,9 @@
   },
   "eslintConfig": {
     "root": true,
-    "parserOptions": {"parser": "babel-eslint"},
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
     "extends": [
       "plugin:vue/essential",
       "eslint:recommended"

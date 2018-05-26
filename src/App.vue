@@ -96,8 +96,9 @@ export default {
   name: 'app',
   data() {
     return {
-      verbList: ["นั่ง","นอน","กิน","ขี้","เดิน","วิ่ง","เลื้อย","เต้น","คลาน","ท่องสูตรคูณ","ปวดฟัน","ปวดท้อง","หัวเราะ","ยืน","โพสท่า"],
-      adverbList: ["แบบสวยๆ","แบบจริงจัง","อย่างเมามัน","แบบช้าๆ","ด้วยความรำคาญ","แบบนางสาวไทย","อย่างบ้าคลั่ง","แบบตื่นเต้นสุดๆ","เหมือนอยู่บนสาย 8","แบบโรคจิต"],
+      // verbList: ["นั่ง","นอน","กิน","ขี้","เดิน","วิ่ง","เลื้อย","เต้น","คลาน","ท่องสูตรคูณ","ปวดฟัน","ปวดท้อง","หัวเราะ","ยืน","โพสท่า"],
+      // adverbList: ["แบบสวยๆ","แบบจริงจัง","อย่างเมามัน","แบบช้าๆ","ด้วยความรำคาญ","แบบนางสาวไทย","อย่างบ้าคลั่ง","แบบตื่นเต้นสุดๆ","เหมือนอยู่บนสาย 8","แบบโรคจิต"],
+      // playSound: true,
       drawer: false,
       items: [
         {
@@ -117,8 +118,7 @@ export default {
         }
       ],
       restoreDialog: false,
-      aboutDialog: false,
-      playSound: true
+      aboutDialog: false
     }
   },
   created() {
@@ -126,30 +126,33 @@ export default {
   },
   methods: {
     saveToLocal(reset=false,onlyword=false){
-      if(reset){
-        let data = [["นั่ง","นอน","กิน","ขี้","เดิน","วิ่ง","เลื้อย","เต้น","คลาน","ท่องสูตรคูณ","ปวดฟัน","ปวดท้อง","หัวเราะ","ยืน","โพสท่า"],["แบบสวยๆ","แบบจริงจัง","อย่างเมามัน","แบบช้าๆ","ด้วยความรำคาญ","แบบนางสาวไทย","อย่างบ้าคลั่ง","แบบตื่นเต้นสุดๆ","เหมือนอยู่บนสาย 8","แบบโรคจิต"],true];
-        if(onlyword){
-          data = [["นั่ง","นอน","กิน","ขี้","เดิน","วิ่ง","เลื้อย","เต้น","คลาน","ท่องสูตรคูณ","ปวดฟัน","ปวดท้อง","หัวเราะ","ยืน","โพสท่า"],["แบบสวยๆ","แบบจริงจัง","อย่างเมามัน","แบบช้าๆ","ด้วยความรำคาญ","แบบนางสาวไทย","อย่างบ้าคลั่ง","แบบตื่นเต้นสุดๆ","เหมือนอยู่บนสาย 8","แบบโรคจิต"],this.playSound];
-        }
-        localStorage.setItem(STORAGE_NAME,JSON.stringify(data));
-      }else{
-        localStorage.setItem(STORAGE_NAME,JSON.stringify([this.verbList,this.adverbList,this.playSound]));
-      }
+      this.$store.commit('saveToLocal',{reset,onlyword});
+      // if(reset){
+      //   let data = [["นั่ง","นอน","กิน","ขี้","เดิน","วิ่ง","เลื้อย","เต้น","คลาน","ท่องสูตรคูณ","ปวดฟัน","ปวดท้อง","หัวเราะ","ยืน","โพสท่า"],["แบบสวยๆ","แบบจริงจัง","อย่างเมามัน","แบบช้าๆ","ด้วยความรำคาญ","แบบนางสาวไทย","อย่างบ้าคลั่ง","แบบตื่นเต้นสุดๆ","เหมือนอยู่บนสาย 8","แบบโรคจิต"],true];
+      //   if(onlyword){
+      //     data = [["นั่ง","นอน","กิน","ขี้","เดิน","วิ่ง","เลื้อย","เต้น","คลาน","ท่องสูตรคูณ","ปวดฟัน","ปวดท้อง","หัวเราะ","ยืน","โพสท่า"],["แบบสวยๆ","แบบจริงจัง","อย่างเมามัน","แบบช้าๆ","ด้วยความรำคาญ","แบบนางสาวไทย","อย่างบ้าคลั่ง","แบบตื่นเต้นสุดๆ","เหมือนอยู่บนสาย 8","แบบโรคจิต"],this.playSound];
+      //   }
+      //   localStorage.setItem(STORAGE_NAME,JSON.stringify(data));
+      // }else{
+      //   localStorage.setItem(STORAGE_NAME,JSON.stringify([this.verbList,this.adverbList,this.playSound]));
+      // }
     },
     loadFromLocal(){
-      let data = JSON.parse(localStorage.getItem(STORAGE_NAME)) || "";
-      if(data === ""){
-        this.saveToLocal(true);
-      }else{
-        this.verbList = data[0];
-        this.adverbList = data[1];
-        this.playSound = data[2];
-      }
+      this.$store.dispatch('loadFromLocal');
+    //   let data = JSON.parse(localStorage.getItem(STORAGE_NAME)) || "";
+    //   if(data === ""){
+    //     this.saveToLocal(true);
+    //   }else{
+    //     this.verbList = data[0];
+    //     this.adverbList = data[1];
+    //     this.playSound = data[2];
+    //   }
     },
     resetWords(){
       this.restoreDialog = false;
-      this.saveToLocal(true,true);
-      this.loadFromLocal();
+      this.$store.dispatch('resetWords');
+    //   this.saveToLocal(true,true);
+    //   this.loadFromLocal();
     }
   },
   mounted(){
@@ -161,6 +164,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons');
+
 @font-face {
   font-family: 'Kanit';
   font-style: normal;

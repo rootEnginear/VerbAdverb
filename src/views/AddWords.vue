@@ -20,7 +20,7 @@
         <v-flex xs6>
           <v-divider />
           <v-list>
-            <v-list-tile v-for="(word,index) in $root.$children[0].verbList" :key="index" dense>
+            <v-list-tile v-for="(word,index) in verbList" :key="index" dense>
               <v-list-tile-content>
                 <v-list-tile-sub-title>{{word}}</v-list-tile-sub-title>
               </v-list-tile-content>
@@ -33,7 +33,7 @@
         <v-flex xs6>
           <v-divider />
           <v-list>
-            <v-list-tile v-for="(word,index) in $root.$children[0].adverbList" :key="index" dense>
+            <v-list-tile v-for="(word,index) in adverbList" :key="index" dense>
               <v-list-tile-content>
                 <v-list-tile-sub-title>{{word}}</v-list-tile-sub-title>
               </v-list-tile-content>
@@ -64,16 +64,32 @@ export default {
       snackbarText: ''
     }
   },
+  computed: {
+    verbList() {
+      return this.$store.state.verbList;
+    },
+    adverbList() {
+      return this.$store.state.adverbList;
+    }
+  },
   methods: {
+    hardCopy(data){
+      return JSON.parse(JSON.stringify(data));
+    },
     removeWord(index,type){
       let list = [];
       if(type){
-        list = this.$root.$children[0].adverbList;
+        list = this.hardCopy(this.adverbList);
       }else{
-        list = this.$root.$children[0].verbList;
+        list = this.hardCopy(this.verbList);
       }
       list.splice(index,1);
-      this.$root.$children[0].saveToLocal();
+      if(type){
+        this.$store.commit('editState',[{name:'adverbList',value:list}]);
+      }else{
+        this.$store.commit('editState',[{name:'verbList',value:list}]);
+      }
+      this.$store.commit('saveToLocal');
     },
     addWord(type){
       if(this.word.trim() == ""){
@@ -82,16 +98,20 @@ export default {
         return 0;
       }
       if(type){
-        if(this.$root.$children[0].adverbList.indexOf(this.word.trim()) === -1){
-          this.$root.$children[0].adverbList.push(this.word.trim());
+        if(this.adverbList.indexOf(this.word.trim()) === -1){
+          let list = this.hardCopy(this.adverbList);
+          list.push(this.word.trim());
+          this.$store.commit('editState',[{name:'adverbList',value:list}]);
         }else{
           this.snackbarText = `เกิดข้อผิดพลาด! มีคำว่า '${this.word}' อยู่แล้ว`;
           this.snackbar = 1;
           return 0;
         }
       }else{
-        if(this.$root.$children[0].verbList.indexOf(this.word.trim()) === -1){
-          this.$root.$children[0].verbList.push(this.word.trim());
+        if(this.verbList.indexOf(this.word.trim()) === -1){
+          let list = this.hardCopy(this.verbList);
+          list.push(this.word.trim());
+          this.$store.commit('editState',[{name:'verbList',value:list}]);
         }else{
           this.snackbarText = `เกิดข้อผิดพลาด! มีคำว่า '${this.word}' อยู่แล้ว`;
           this.snackbar = 1;
@@ -99,7 +119,7 @@ export default {
         }
       }
       this.word = '';
-      this.$root.$children[0].saveToLocal();
+      this.$store.commit('saveToLocal');
     }
   }
 }

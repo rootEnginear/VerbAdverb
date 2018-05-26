@@ -1,22 +1,14 @@
 import Vue from 'vue'
-import Vuetify from 'vuetify'
 import App from './App.vue'
 import './registerServiceWorker'
+import './vuetify'
 import router from './router'
-
-import 'vuetify/dist/vuetify.min.css'
+import store from './store'
 
 Vue.config.productionTip = false
 
-Vue.use(Vuetify, {
-  theme: {
-    primary: '#424242',
-    secondary: '#FFF',
-    accent: '#000'
-  }
-})
-
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')

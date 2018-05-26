@@ -4,7 +4,7 @@
       <v-list two-line>
         <v-list-tile @click="toggleSound">
           <v-list-tile-action>
-            <v-checkbox :input-value="$root.$children[0].playSound"></v-checkbox>
+            <v-checkbox :input-value="playSound"></v-checkbox>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>เสียงเอฟเฟค</v-list-tile-title>
@@ -26,10 +26,17 @@
 <script>
 export default {
   name: 'settings',
+  computed: {
+    playSound() {
+      return this.$store.state.playSound;
+    }
+  },
   methods: {
     toggleSound(){
-      this.$root.$children[0].playSound = !this.$root.$children[0].playSound;
-      this.$root.$children[0].saveToLocal();
+      // this.$root.$children[0].playSound = !this.$root.$children[0].playSound;
+      this.$store.commit('editState',[{name: 'playSound',value: !this.playSound}]);
+      // this.$root.$children[0].saveToLocal();
+      this.$store.commit('saveToLocal');
     }
   }
 }
