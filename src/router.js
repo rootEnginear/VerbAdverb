@@ -15,19 +15,23 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'VerbAdverb',
+      // name: 'VerbAdverb',
+      name: 0,
       component: loadView('Maingame')
     }, {
       path: '/spinner',
-      name: 'สปินเนอร์',
+      // name: 'สปินเนอร์',
+      name: 1,
       component: loadView('Spinner')
     }, {
       path: '/settings',
-      name: 'ตั้งค่า',
+      // name: 'ตั้งค่า',
+      name: 2,
       component: loadView('Settings')
     },{
       path: '/settings/words',
-      name: 'เพิ่มคำศัพท์',
+      // name: 'เพิ่มคำศัพท์',
+      name: 3,
       component: loadView('AddWords')
     },{
       path: '*',

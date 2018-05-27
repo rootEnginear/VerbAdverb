@@ -23,7 +23,7 @@ export default {
   },
   computed: {
     btnText() {
-      const texts = ['คลิ๊กกกกกกกกกกซ์','จิ้มมมมมมมมมม','สุ่มมมมมมมมมม','สุ่มวนไปค่ะ','สุ่มซิจ๊ะ รออะไร'];
+      const texts = this.$t('words.button');
       return texts[Math.floor(Math.random() * texts.length)];
     },
     playSound() {

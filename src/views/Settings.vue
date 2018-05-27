@@ -7,15 +7,15 @@
             <v-checkbox :input-value="playSound"></v-checkbox>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>เสียงเอฟเฟค</v-list-tile-title>
-            <v-list-tile-sub-title>เล่นเสียงเอฟเฟคทุกครั้งที่สุ่ม</v-list-tile-sub-title>
+            <v-list-tile-title>{{$t('settings.soundTitle')}}</v-list-tile-title>
+            <v-list-tile-sub-title>{{$t('settings.soundDesc')}}</v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
 
         <v-list-tile avatar :to="{path: '/settings/words'}">
           <v-list-tile-content>
-            <v-list-tile-title>รายการคำศัพท์</v-list-tile-title>
-            <v-list-tile-sub-title>เพิ่ม/ลบคำศัพท์ในเกม</v-list-tile-sub-title>
+            <v-list-tile-title>{{$t('settings.wordTitle')}}</v-list-tile-title>
+            <v-list-tile-sub-title>{{$t('settings.wordDesc')}}</v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>

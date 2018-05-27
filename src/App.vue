@@ -6,7 +6,8 @@
         <v-list>
           <v-list-tile>
             <v-list-tile-title class="title">
-              VerbAdverb
+              {{ $t('appname') }}
+              <!-- VerbAdverb -->
             </v-list-tile-title>
           </v-list-tile>
         </v-list>
@@ -26,7 +27,7 @@
             <v-icon>info</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>เกี่ยวกับ "VerbAdverb"</v-list-tile-title>
+            <v-list-tile-title>{{$t('menu.about')}}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -40,7 +41,7 @@
         <v-icon>arrow_back</v-icon>
       </v-btn>
       <!-- Name -->
-      <v-toolbar-title>{{this.$route.name}}</v-toolbar-title>
+      <v-toolbar-title>{{$t('routes')[+this.$route.name]}}</v-toolbar-title>
 
       <v-spacer></v-spacer>
       
@@ -60,16 +61,17 @@
     <!-- About Dialog -->
     <v-dialog v-model="aboutDialog" width="80%">
       <v-card>
-        <v-card-title class="headline">เกี่ยวกับ "VerbAdverb"</v-card-title>
+        <v-card-title class="headline">{{$t('about.title')}}</v-card-title>
         <v-card-text class="text-xs-center">
-          VerbAdverb คือเกมสันทนาการหนึ่งที่ให้ผู้เล่นทำท่าตามที่จับฉลาดได้ ที่ทำก็ไม่มีหรอกอะไรขี้เกียจทำฉลาก<br>
+          <div v-html="$t('about.content')"></div>
+          <!-- VerbAdverb คือเกมสันทนาการหนึ่งที่ให้ผู้เล่นทำท่าตามที่จับฉลาดได้ ที่ทำก็ไม่มีหรอกอะไรขี้เกียจทำฉลาก<br>
           <i>เจอบัคไม่ต้องติดต่อมาหรอกไม่ทำแล้วค่ะ</i><br>
-          เหงาโสดทักมา: <a style="color:black" target="_blank" href="mailto:moo_suthep@hotmail.com">@rootEnginear</a><br>
+          เหงาโสดทักมา: <a style="color:black" target="_blank" href="mailto:moo_suthep@hotmail.com">@rootEnginear</a><br> -->
           <small>Copyright &copy; <span id="year">2018</span> Suthep Chanchuphol. All right reserved.</small>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="yellow" @click.native="aboutDialog = false">ปิด</v-btn>
+          <v-btn color="yellow" @click.native="aboutDialog = false">{{$t('about.close')}}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -77,12 +79,14 @@
     <!-- Restore Dialog -->
     <v-dialog v-model="restoreDialog" persistent width="80%">
       <v-card>
-        <v-card-title class="headline">ต้องการรีเซ็ตคำหรือไม่?</v-card-title>
-        <v-card-text>คำต่างๆ ที่คุณได้เพิ่มเข้าไปทีหลังจะ<span class="red--text">ถูกลบ</span>และรีเซ็ตเป็นคำเดิมเหมือนตอนแรก (ยังสามารถเพิ่มเข้าไปใหม่ได้อีกหลังรีเซ็ต)</v-card-text>
+        <v-card-title class="headline">{{$t('restore.title')}}</v-card-title>
+        <v-card-text>
+          <div v-html="$t('restore.content')"></div>
+        </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="ิblack" flat @click.native="restoreDialog = false">ยกเลิก</v-btn>
-          <v-btn color="red" flat @click.native="resetWords()">รีเซ็ต</v-btn>
+          <v-btn color="ิblack" flat @click.native="restoreDialog = false">{{$t('restore.discard')}}</v-btn>
+          <v-btn color="red" flat @click.native="resetWords()">{{$t('restore.agree')}}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -103,17 +107,17 @@ export default {
       items: [
         {
           icon: "games",
-          title: "เล่น",
+          title: this.$t('menu.play'),
           action: {path: "/"}
         },
         {
           icon: "refresh",
-          title: "สปินเนอร์",
+          title: this.$t('menu.spinner'),
           action: {path: "/spinner"}
         },
         {
           icon: "settings",
-          title: "ตั้งค่า",
+          title: this.$t('menu.settings'),
           action: {path: "/settings"}
         }
       ],

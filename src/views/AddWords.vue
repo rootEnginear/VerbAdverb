@@ -2,16 +2,16 @@
   <v-layout row wrap>
     <v-flex xs12>
       <v-card flat class="pa-4">
-        <v-text-field v-model="word" label="คำศัพท์"></v-text-field>
+        <v-text-field v-model="word" :label="$t('words.txttitle')"></v-text-field>
         <v-layout>
           <v-flex xs6 class="pr-2">
             <v-btn @click="addWord(0)" block color="success">
-              <v-icon>add</v-icon> &nbsp;เพิ่ม Verb
+              <v-icon>add</v-icon> &nbsp;{{$t('words.addverb')}}
             </v-btn>
           </v-flex>
           <v-flex xs6 class="pl-2">
             <v-btn @click="addWord(1)" block color="info">
-              <v-icon>add</v-icon> &nbsp;เพิ่ม Adverb
+              <v-icon>add</v-icon> &nbsp;{{$t('words.addadv')}}
             </v-btn>
           </v-flex>
         </v-layout>
@@ -48,7 +48,7 @@
 
     <v-snackbar :timeout="4000" bottom v-model="snackbar">
       {{snackbarText}}
-      <v-btn flat color="yellow" @click.native="snackbar = false">ปิด</v-btn>
+      <v-btn flat color="yellow" @click.native="snackbar = false">{{$t('words.dissnack')}}</v-btn>
     </v-snackbar>
     
   </v-layout>
@@ -93,7 +93,7 @@ export default {
     },
     addWord(type){
       if(this.word.trim() == ""){
-        this.snackbarText = `กรุณากรอกคำศัพท์!`;
+        this.snackbarText = this.$t('words.txtblankerror');
         this.snackbar = 1;
         return 0;
       }
@@ -103,7 +103,7 @@ export default {
           list.push(this.word.trim());
           this.$store.commit('editState',[{name:'adverbList',value:list}]);
         }else{
-          this.snackbarText = `เกิดข้อผิดพลาด! มีคำว่า '${this.word}' อยู่แล้ว`;
+          this.snackbarText = this.$t('words.dupworderror',{word:this.word});
           this.snackbar = 1;
           return 0;
         }
@@ -113,7 +113,7 @@ export default {
           list.push(this.word.trim());
           this.$store.commit('editState',[{name:'verbList',value:list}]);
         }else{
-          this.snackbarText = `เกิดข้อผิดพลาด! มีคำว่า '${this.word}' อยู่แล้ว`;
+          this.snackbarText = this.$t('words.dupworderror',{word:this.word});
           this.snackbar = 1;
           return 0;
         }
