@@ -48,6 +48,8 @@
   "display": "standalone",
   "background_color": "#fff",
   "theme_color": "#ffeb3b",
-  "lang": "th",
-  "orientation": "portrait"
+  "lang": "en",
+  "orientation": "portrait",
+  "description": "Play 'Verb Adverb Charades' now with your friends!",
+  "categories": ["games"]
 }
