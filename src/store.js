@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import th from './translations/th'
+import en from './translations/en'
+
 Vue.use(Vuex)
 
 const STORAGE_NAME = 'verbadverb'
@@ -15,32 +18,47 @@ const STORAGE_NAME = 'verbadverb'
 export default new Vuex.Store({
   strict: true,
   state: {
-    verbList: ["นั่ง", "นอน", "กิน", "ขี้", "เดิน", "วิ่ง", "เลื้อย", "เต้น", "คลาน", "ท่องสูตรคูณ", "ปวดฟัน", "ปวดท้อง", "หัวเราะ", "ยืน", "โพสท่า"],
-    adverbList: ["แบบสวยๆ", "แบบจริงจัง", "อย่างเมามัน", "แบบช้าๆ", "ด้วยความรำคาญ", "แบบนางสาวไทย", "อย่างบ้าคลั่ง", "แบบตื่นเต้นสุดๆ", "เหมือนอยู่บนสาย 8", "แบบโรคจิต"],
-    playSound: true
+    verbList: th['words.verb'],
+    adverbList: th['words.adverb'],
+    playSound: true,
+    locale: (window.navigator.userLanguage || window.navigator.languages).includes("th") ? 'th' : 'en'
   },
   mutations: {
     saveToLocal(state, payload = {reset:false, onlyword:false}) {
       if (payload.reset) {
-        let data = [
-          ["นั่ง", "นอน", "กิน", "ขี้", "เดิน", "วิ่ง", "เลื้อย", "เต้น", "คลาน", "ท่องสูตรคูณ", "ปวดฟัน", "ปวดท้อง", "หัวเราะ", "ยืน", "โพสท่า"],
-          ["แบบสวยๆ", "แบบจริงจัง", "อย่างเมามัน", "แบบช้าๆ", "ด้วยความรำคาญ", "แบบนางสาวไทย", "อย่างบ้าคลั่ง", "แบบตื่นเต้นสุดๆ", "เหมือนอยู่บนสาย 8", "แบบโรคจิต"], true
-        ];
-        if (payload.onlyword) {
+        let data = [];
+        if(state.locale === 'th'){
           data = [
-            ["นั่ง", "นอน", "กิน", "ขี้", "เดิน", "วิ่ง", "เลื้อย", "เต้น", "คลาน", "ท่องสูตรคูณ", "ปวดฟัน", "ปวดท้อง", "หัวเราะ", "ยืน", "โพสท่า"],
-            ["แบบสวยๆ", "แบบจริงจัง", "อย่างเมามัน", "แบบช้าๆ", "ด้วยความรำคาญ", "แบบนางสาวไทย", "อย่างบ้าคลั่ง", "แบบตื่นเต้นสุดๆ", "เหมือนอยู่บนสาย 8", "แบบโรคจิต"], state.playSound
+            th['words.verb'],
+            th['words.adverb']
+          ];
+        }else{
+          data = [
+            en['words.verb'],
+            en['words.adverb']
           ];
         }
+        if (payload.onlyword) {
+          data.push(state.playSound);
+        }else{
+          data.push(true);
+        }
+
+        data.push(state.locale)
+        
         localStorage.setItem(STORAGE_NAME, JSON.stringify(data));
       } else {
-        localStorage.setItem(STORAGE_NAME, JSON.stringify([state.verbList, state.adverbList, state.playSound]));
+        localStorage.setItem(STORAGE_NAME, JSON.stringify([
+          state.verbList,
+          state.adverbList,
+          state.playSound,
+          state.locale
+        ]));
       }
     },
     editState(state,payload=[]){
       for(let data in payload){
         let x = payload[data];
-        // debugger;
         state[x.name] = x.value;
       }
     }
@@ -52,12 +70,10 @@ export default new Vuex.Store({
         context.commit('saveToLocal',{reset: true});
       } else {
         context.commit('editState',[
-          {name:'verbList', value:data[0]},
-          {name: 'adverbList',value: data[1]},
-          {name: 'playSound',value: data[2]}
-          // state.verbList = data[0];
-          // state.adverbList = data[1];
-          // state.playSound = data[2];
+          {name: 'verbList', value:data[0]},
+          {name: 'adverbList', value: data[1]},
+          {name: 'playSound', value: data[2]},
+          {name: 'locale', value:data[3]}
         ]);
       }
     },

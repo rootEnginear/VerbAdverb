@@ -36,7 +36,7 @@
     <!-- Nav -->
     <v-toolbar fixed color="yellow" app>
       <!-- Icon -->
-      <v-toolbar-side-icon aria-label="open menu" v-if="this.$route.path != '/settings/words'" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-side-icon aria-label="open menu" v-if="!this.$route.path.includes('settings/')" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-btn v-else icon active-class :to="{path: '/settings'}">
         <v-icon>arrow_back</v-icon>
       </v-btn>
@@ -61,25 +61,26 @@
     <!-- About Dialog -->
     <v-dialog v-model="aboutDialog" width="80%">
       <v-card>
-        <v-card-title class="headline">{{$t('about.title')}}</v-card-title>
+        <v-toolbar color="yellow">
+          <v-toolbar-title>{{$t('about.title')}}</v-toolbar-title>
+        </v-toolbar>
         <v-card-text class="text-xs-center">
           <div v-html="$t('about.content')"></div>
-          <!-- VerbAdverb คือเกมสันทนาการหนึ่งที่ให้ผู้เล่นทำท่าตามที่จับฉลาดได้ ที่ทำก็ไม่มีหรอกอะไรขี้เกียจทำฉลาก<br>
-          <i>เจอบัคไม่ต้องติดต่อมาหรอกไม่ทำแล้วค่ะ</i><br>
-          เหงาโสดทักมา: <a style="color:black" target="_blank" href="mailto:moo_suthep@hotmail.com">@rootEnginear</a><br> -->
           <small>Copyright &copy; <span id="year">2018</span> Suthep Chanchuphol. All right reserved.</small>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="yellow" @click.native="aboutDialog = false">{{$t('about.close')}}</v-btn>
+          <v-btn flat @click.native="aboutDialog = false">{{$t('about.close')}}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
-
+    
     <!-- Restore Dialog -->
     <v-dialog v-model="restoreDialog" persistent width="80%">
       <v-card>
-        <v-card-title class="headline">{{$t('restore.title')}}</v-card-title>
+        <v-toolbar color="red" dark>
+          <v-toolbar-title>{{$t('restore.title')}}</v-toolbar-title>
+        </v-toolbar>
         <v-card-text>
           <div v-html="$t('restore.content')"></div>
         </v-card-text>
@@ -94,17 +95,21 @@
 </template>
 
 <script>
-// const STORAGE_NAME = 'verbadverb'
-
 export default {
   name: 'app',
   data() {
     return {
-      // verbList: ["นั่ง","นอน","กิน","ขี้","เดิน","วิ่ง","เลื้อย","เต้น","คลาน","ท่องสูตรคูณ","ปวดฟัน","ปวดท้อง","หัวเราะ","ยืน","โพสท่า"],
-      // adverbList: ["แบบสวยๆ","แบบจริงจัง","อย่างเมามัน","แบบช้าๆ","ด้วยความรำคาญ","แบบนางสาวไทย","อย่างบ้าคลั่ง","แบบตื่นเต้นสุดๆ","เหมือนอยู่บนสาย 8","แบบโรคจิต"],
-      // playSound: true,
       drawer: false,
-      items: [
+      restoreDialog: false,
+      aboutDialog: false
+    }
+  },
+  created() {
+    this.loadFromLocal();
+  },
+  computed: {
+    items(){
+      return [
         {
           icon: "games",
           title: this.$t('menu.play'),
@@ -120,43 +125,19 @@ export default {
           title: this.$t('menu.settings'),
           action: {path: "/settings"}
         }
-      ],
-      restoreDialog: false,
-      aboutDialog: false
-    }
-  },
-  created() {
-    this.loadFromLocal();
+      ]
+    } 
   },
   methods: {
     saveToLocal(reset=false,onlyword=false){
       this.$store.commit('saveToLocal',{reset,onlyword});
-      // if(reset){
-      //   let data = [["นั่ง","นอน","กิน","ขี้","เดิน","วิ่ง","เลื้อย","เต้น","คลาน","ท่องสูตรคูณ","ปวดฟัน","ปวดท้อง","หัวเราะ","ยืน","โพสท่า"],["แบบสวยๆ","แบบจริงจัง","อย่างเมามัน","แบบช้าๆ","ด้วยความรำคาญ","แบบนางสาวไทย","อย่างบ้าคลั่ง","แบบตื่นเต้นสุดๆ","เหมือนอยู่บนสาย 8","แบบโรคจิต"],true];
-      //   if(onlyword){
-      //     data = [["นั่ง","นอน","กิน","ขี้","เดิน","วิ่ง","เลื้อย","เต้น","คลาน","ท่องสูตรคูณ","ปวดฟัน","ปวดท้อง","หัวเราะ","ยืน","โพสท่า"],["แบบสวยๆ","แบบจริงจัง","อย่างเมามัน","แบบช้าๆ","ด้วยความรำคาญ","แบบนางสาวไทย","อย่างบ้าคลั่ง","แบบตื่นเต้นสุดๆ","เหมือนอยู่บนสาย 8","แบบโรคจิต"],this.playSound];
-      //   }
-      //   localStorage.setItem(STORAGE_NAME,JSON.stringify(data));
-      // }else{
-      //   localStorage.setItem(STORAGE_NAME,JSON.stringify([this.verbList,this.adverbList,this.playSound]));
-      // }
     },
     loadFromLocal(){
       this.$store.dispatch('loadFromLocal');
-    //   let data = JSON.parse(localStorage.getItem(STORAGE_NAME)) || "";
-    //   if(data === ""){
-    //     this.saveToLocal(true);
-    //   }else{
-    //     this.verbList = data[0];
-    //     this.adverbList = data[1];
-    //     this.playSound = data[2];
-    //   }
     },
     resetWords(){
       this.restoreDialog = false;
       this.$store.dispatch('resetWords');
-    //   this.saveToLocal(true,true);
-    //   this.loadFromLocal();
     }
   },
   mounted(){

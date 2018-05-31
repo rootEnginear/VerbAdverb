@@ -7,7 +7,7 @@ export default
   'menu.settings': 'ตั้งค่า',
   'menu.about': 'เกี่ยวกับ "VerbAdverb"',
   // Routes (Nav)
-  'routes': ['เล่น', 'สปินเนอร์', 'ตั้งค่า', 'เพิ่มคำศัพท์'],
+  'routes': ['VerbAdverb', 'สปินเนอร์', 'ตั้งค่า', 'คำศัพท์', 'ภาษา'],
   // About Dialog
   'about.title': 'เกี่ยวกับ "VerbAdverb"',
   'about.content': `
@@ -33,6 +33,10 @@ export default
   'settings.soundDesc': 'เล่นเสียงเอฟเฟคทุกครั้งที่สุ่ม',
   'settings.wordTitle': 'รายการคำศัพท์',
   'settings.wordDesc': 'เพิ่ม/ลบคำศัพท์ในเกม',
+  'settings.langTitle': 'ภาษา',
+  'settings.langDesc': 'เปลี่ยนภาษา',
+  'settings.resetTitle': 'รีเซ็ตการตั้งค่า',
+  'settings.resetDesc': 'ลบการเปลี่ยนแปลงต่างๆ และกลับไปใช้ค่าดั้งเดิม',
   // AddWords
   'words.txttitle': 'คำศัพท์',
   'words.addverb': 'เพิ่ม Verb',
@@ -40,15 +44,14 @@ export default
   'words.dissnack': 'ปิด',
   'words.txtblankerror': 'กรุณากรอกคำศัพท์!',
   'words.dupworderror': 'เกิดข้อผิดพลาด! มีคำว่า {word} อยู่แล้ว',
-  // '': '',
-  // '': '',
-  // '': '',
-  // '': '',
-  // '': '',
-  // '': '',
-  // '': '',
-  // '': '',
-  // '': '',
-  // '': '',
-  // '': '',
+  // Restore Dialog
+  'reset.title': 'ต้องการรีเซ็ตการตั้งค่าหรือไม่?',
+  'reset.content': `
+    การตั้งค่าและคำต่างๆ ที่คุณได้เพิ่มเข้าไปทีหลังจะ<span class="red--text">ถูกลบ</span>และรีเซ็ตเป็นคำเดิมเหมือนตอนแรก
+  `,
+  'reset.agree': 'รีเซ็ต',
+  'reset.discard': 'ยกเลิก',
+  // Languages
+  'lang.th': 'ไทย (ค่าเริ่มต้น)',
+  'lang.en': 'English'
 }

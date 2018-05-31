@@ -6,7 +6,7 @@ export default {
   'menu.settings': 'Settings',
   'menu.about': 'About "VerbAdverb"',
   // Routes (Nav)
-  'routes': ['Play', 'Spinner', 'Settings', 'Add words'],
+  'routes': ['VerbAdverb', 'Spinner', 'Settings', 'Word List', 'Languages'],
   // About Dialog
   'about.title': 'About "VerbAdverb"',
   'about.content': `
@@ -23,8 +23,8 @@ export default {
   'restore.agree': 'Reset',
   'restore.discard': 'Cancel',
   // Default Data
-  'words.verb': ["นั่ง", "นอน", "กิน", "ขี้", "เดิน", "วิ่ง", "เลื้อย", "เต้น", "คลาน", "ท่องสูตรคูณ", "ปวดฟัน", "ปวดท้อง", "หัวเราะ", "ยืน", "โพสท่า"],
-  'words.adverb': ["แบบสวยๆ", "แบบจริงจัง", "อย่างเมามัน", "แบบช้าๆ", "ด้วยความรำคาญ", "แบบนางสาวไทย", "อย่างบ้าคลั่ง", "แบบตื่นเต้นสุดๆ", "เหมือนอยู่บนสาย 8", "แบบโรคจิต"],
+  'words.verb': ["Sit", "Sleep", "Eat", "Laugh", "Walk", "Run", "Sneak", "Dance", "Crawl", "Wave", "Toothache", "Stomachache", "Shake", "Stand", "Pose"],
+  'words.adverb': ["Beautifully", "Seriously", "Crazily", "Slowly", "Annoyingly", "Elegantly", "Recklessly", "Excitedly", "Confusingly", "Wildly"],
   // Maingame
   'words.button': ['Click me', 'Just a touch', 'Random', 'Tap again', 'What are you waiting for'],
   // Settings
@@ -32,6 +32,10 @@ export default {
   'settings.soundDesc': 'Play sound effect every time you random.',
   'settings.wordTitle': 'Word list',
   'settings.wordDesc': 'Add/remove words',
+  'settings.langTitle': 'Languages',
+  'settings.langDesc': 'Change language',
+  'settings.resetTitle': 'Factory Reset',
+  'settings.resetDesc': 'Reset all settings to default',
   // AddWords
   'words.txttitle': 'Word',
   'words.addverb': 'Add a verb',
@@ -39,15 +43,14 @@ export default {
   'words.dissnack': 'Close',
   'words.txtblankerror': 'Please enter a word!',
   'words.dupworderror': 'Oops! \'{word}\' exists!',
-  // '': '',
-  // '': '',
-  // '': '',
-  // '': '',
-  // '': '',
-  // '': '',
-  // '': '',
-  // '': '',
-  // '': '',
-  // '': '',
-  // '': '',
+  // Restore Dialog
+  'reset.title': 'Do you want to factory reset?',
+  'reset.content': `
+    All settings and words you've added will be <span class="red--text">deleted</span> and reset back to default settings.
+  `,
+  'reset.agree': 'Reset',
+  'reset.discard': 'Cancel',
+  // Languages
+  'lang.th': 'ไทย (Default)',
+  'lang.en': 'English'
 }

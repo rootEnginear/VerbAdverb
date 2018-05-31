@@ -56,7 +56,7 @@
 
 <script>
 export default {
-  name: 'settings',
+  name: 'addwords',
   data(){
     return {
       word: '',
