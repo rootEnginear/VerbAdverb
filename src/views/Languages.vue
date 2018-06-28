@@ -2,7 +2,7 @@
   <v-layout row>
     <v-flex xs12>
       <v-list two-line>
-        <v-radio-group :input-value="lang" mandatory>
+        <v-radio-group :input-value="lang" mandatory class="pt-0">
 
           <v-list-tile @click="changeLang('th')">
             <v-list-tile-action>

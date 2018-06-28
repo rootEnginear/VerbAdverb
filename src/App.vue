@@ -14,7 +14,7 @@
       </v-toolbar>
       <v-divider></v-divider>
       <v-list class="pt-0" dense>
-        <v-list-tile active-class="yellow" v-for="item in items" :key="item.title" :to="item.action">
+        <v-list-tile active-class="yellow" v-for="item in items" :key="item.title" :to="item.action" :replace="item.replace === true">
           <v-list-tile-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-tile-action>
@@ -37,7 +37,7 @@
     <v-toolbar fixed color="yellow" app>
       <!-- Icon -->
       <v-toolbar-side-icon aria-label="open menu" v-if="!this.$route.path.includes('settings/')" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-btn v-else icon active-class :to="{path: '/settings'}">
+      <v-btn v-else icon active-class @click="goto(-1)">
         <v-icon>arrow_back</v-icon>
       </v-btn>
       <!-- Name -->
@@ -113,12 +113,14 @@ export default {
         {
           icon: "games",
           title: this.$t('menu.play'),
-          action: {path: "/"}
+          action: {path: "/"},
+          replace: true
         },
         {
           icon: "refresh",
           title: this.$t('menu.spinner'),
-          action: {path: "/spinner"}
+          action: {path: "/spinner"},
+          replace: true
         },
         {
           icon: "settings",
@@ -129,6 +131,9 @@ export default {
     } 
   },
   methods: {
+    goto(n){
+      return this.$router.go(n);
+    },
     saveToLocal(reset=false,onlyword=false){
       this.$store.commit('saveToLocal',{reset,onlyword});
     },
