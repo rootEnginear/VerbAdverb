@@ -33,6 +33,5 @@ export default new Router({
       path: '*',
       redirect: '/'
     }
-  ],
-  mode: 'history'
+  ]
 })
