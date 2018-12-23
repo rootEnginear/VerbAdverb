@@ -48,7 +48,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="ิblack" flat @click.native="resetDialog = false">{{$t('reset.discard')}}</v-btn>
+          <v-btn flat @click.native="resetDialog = false">{{$t('reset.discard')}}</v-btn>
           <v-btn color="red" flat @click.native="factoryReset()">{{$t('reset.agree')}}</v-btn>
         </v-card-actions>
       </v-card>

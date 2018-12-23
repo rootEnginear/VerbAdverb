@@ -11,9 +11,8 @@ export default
   // About Dialog
   'about.title': 'เกี่ยวกับ "VerbAdverb"',
   'about.content': `
-    VerbAdverb คือเกมสันทนาการหนึ่งที่ให้ผู้เล่นทำท่าตามที่จับฉลาดได้ ที่ทำก็ไม่มีหรอกอะไรขี้เกียจทำฉลาก<br>
-    <i>เจอบัคไม่ต้องติดต่อมาหรอกไม่ทำแล้วค่ะ</i><br>
-    เหงาโสดทักมา: <a style="color:black" target="_blank" href="mailto:moo_suthep@hotmail.com">@rootEnginear</a>
+    VerbAdverb คือเกมสันทนาการหนึ่งที่ให้ผู้เล่นทำท่าตามที่จับฉลาดได้ ที่ทำก็เพราะขี้เกียจทำฉลากนั่นแหละ<br>
+    เจอบัคติดต่อมา <a style="color:black" target="_blank" href="mailto:moo_suthep@hotmail.com">@rootEnginear</a>
   `,
   'about.close': 'ปิด',
   // Restore Dialog

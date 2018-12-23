@@ -11,8 +11,7 @@ export default {
   'about.title': 'About "VerbAdverb"',
   'about.content': `
     VerbAdverb, known as 'Verb-adverb Charades', is an act-out activity by doing the verb and the adverb you got. I'm just too lazy to write the words on the paper myself.<br>
-    <i>Don't ring me if you found any bugs. Fix that yourself and make a pull request.</i><br>
-    Contact: <a style="color:black" target="_blank" href="mailto:moo_suthep@hotmail.com">@rootEnginear</a>
+    Contact me if you found any bugs! <a style="color:black" target="_blank" href="mailto:moo_suthep@hotmail.com">@rootEnginear</a>
   `,
   'about.close': 'Close',
   // Restore Dialog
